@@ -1,0 +1,54 @@
+﻿@using RicoCore.Services.ECommerce.Bills.Dtos;
+@model BillViewModel
+<h1>Hóa đơn Rèm Đức Trung</h1>
+<table>
+    <tr>
+        <td>Tên khách hàng</td>
+        <td>@Model.CustomerName</td>
+    </tr>
+    <tr>
+        <td>Địa chỉ</td>
+        <td>@Model.CustomerAddress</td>
+    </tr>
+    <tr>
+        <td>Điện thoại</td>
+        <td>@Model.CustomerMobile</td>
+    </tr>
+    <tr>
+        <td>Ngày</td>
+        <td>@Model.DateCreated.ToString("dd/MM/yyyy hh:mm")</td>
+    </tr>
+    <tr>
+        <td>Chi tiết đơn hàng @Model.Code</td>
+        <td>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Sản phẩm</th>
+                        <th>Số lượng</th>
+                        <th>Đơn giá</th>
+                        <th>Tổng tiền</th>
+                    </tr>
+                </thead>
+                @*<tbody>
+                    @foreach (var item in Model.BillDetails)
+                    {
+                        <tr>
+                            <td>@item.Product.Name</td>
+                            <td>@item.Quantity</td>
+                            <td>@item.Price</td>
+                            <td>@((item.Quantity * item.Price).ToString("N0"))</td>
+                        </tr>
+                    }
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td colspan="5">
+                            Total: @Model.BillDetails.Sum(x => x.Quantity * x.Price).ToString("N0")
+                        </td>
+                    </tr>
+                </tfoot>*@
+            </table>
+        </td>
+    </tr>
+</table>

@@ -1,0 +1,120 @@
+﻿@using RicoCore.Services.Content.Posts.Dtos;
+@model PostListByCategoryViewModel
+@{
+    ViewData["MetaTitle"] = Model.Data.CurrentPage == 1 ? @Html.Raw(Model.Category.MetaTitle) : @Html.Raw(Model.Category.MetaTitle + " - Trang " + Model.Data.CurrentPage);
+    ViewData["MetaKeywords"] = Model.Data.CurrentPage == 1 ? @Html.Raw(Model.Category.MetaKeywords) : @Html.Raw(Model.Category.MetaKeywords + " - Trang " + Model.Data.CurrentPage);
+    ViewData["MetaDescription"] = Model.Data.CurrentPage == 1 ? @Html.Raw(Model.Category.MetaDescription) : @Html.Raw(Model.Category.MetaDescription + " - Trang " + Model.Data.CurrentPage);
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="breadcrumbs">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12">
+                <ul>
+                    <li class="home"> <a title="Trang chủ" href="/">Trang chủ</a><span>&raquo;</span></li>
+                    <li><strong><a title="@Model.Category.Name" href="/danh-muc/@Model.Category.Url">@Model.Category.Name</a></strong></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="main-container col2-right-layout">
+    <div class="main container">
+        <div class="row">
+            <div class="col-sm-9">
+                <div class="col-main">
+                    <div class="page-title">
+                            <h2>@Model.Category.Name</h2>
+                        </div>
+                    <div class="blog-wrapper" id="main">
+                        <div class="site-content" id="primary">
+                            <div role="main" id="content">
+                                @if (Model.Data.Results.Count() > 0)
+                                {
+                                    foreach (var item in Model.Data.Results)
+                                    {
+                                        <article class="blog_entry">
+                                            <header class="blog_entry-header">
+                                                <div class="blog_entry-header-inner">
+                                                    <h2 class="blog_entry-title">
+                                                        <a href="/bai-viet/@item.Url">@item.Name</a>
+                                                    </h2>
+                                                </div>
+                                                <!--blog_entry-header-inner-->
+                                            </header>
+                                            <!--blog_entry-header-->
+                                            <div class="entry-content">
+                                                <div class="featured-thumb">
+                                                    <a href="/bai-viet/@item.Url">
+                                                        @if (!string.IsNullOrEmpty(item.Image) || !string.IsNullOrWhiteSpace(item.Image))
+                                                        {
+                                                            <img alt="@item.Name" src="@item.Image" class="responsive-image">
+                                                        }
+                                                        else
+                                                        {
+                                                            <img alt="@item.Name" class="responsive-image" src="/client-side/images/blog-img5.jpg" />
+                                                        }    
+                                                    </a>
+                                                </div>
+                                                <div class="entry-meta-data">
+                                                    <span class="date"><i class="fa fa-calendar"></i>&nbsp; @item.DateCreated.Day - @item.DateCreated.Month - @item.DateCreated.Year</span>
+                                                </div>
+                                                <div class="entry-content">
+                                                    @Html.Raw(item.Description)
+                                                </div>
+                                                <p> <a class="btn" href="/bai-viet/@item.Url">Đọc thêm</a> </p>
+                                            </div>
+                                        </article>
+                                    }
+                                }
+
+
+                            </div>
+                        </div>
+                        @(await Component.InvokeAsync("PagerPost", Model.Data))
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-right sidebar col-sm-3">
+                <div role="complementary" class="widget_wrapper13" id="secondary">
+                    @await Component.InvokeAsync("MostPopularPosts")
+                    @await Component.InvokeAsync("Categories")
+                    @*@await Component.InvokeAsync("BannerAdBlock")
+                        @await Component.InvokeAsync("BlockTags")
+                        @await Component.InvokeAsync("TextWidget")*@
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@*<div class="col-sm-12 col-xs-12">
+        <h1>Danh mục bài viết: @Model.Category.Name</h1>
+        @foreach (var item in Model.Data.Results)
+        {
+        <a href="/bai-viet/@item.Url"><h3>@item.Name</h3></a>
+            <p>@Html.Raw(item.Content)</p>
+            <p>Tags: @item.Tags</p>
+            <p>Lượt xem: @item.Viewed</p>
+            <p>Ngày cập nhật: @item.DateModified</p>
+            <p class="border-bottom"></p>
+        }
+        <form action="/danh-muc/@Model.Category.Url" method="get">
+            <div class="sorter">
+                <div class="short-by">
+                    <label>Sắp xếp:</label>
+                    <select name="sortBy" asp-for="SortType"
+                            onchange="this.form.submit()" asp-items="Model.SortTypes"></select>
+                </div>
+                <div class="short-by page">
+                    <label>Kích cỡ trang:</label>
+                    <select name="pageSize" asp-for="PageSize" onchange="this.form.submit()"
+                            asp-items="Model.PageSizes"></select>
+                </div>
+            </div>
+            </form>
+            @(await Component.InvokeAsync("Pager", Model.Data))
+    </div>*@

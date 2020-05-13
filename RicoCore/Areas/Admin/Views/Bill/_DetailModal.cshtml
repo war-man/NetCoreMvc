@@ -1,0 +1,151 @@
+﻿<div id="modal-detail" class="modal fade in" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog  modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h4 class="modal-title">Chi tiết hóa đơn</h4>
+            </div>
+            <div class="modal-body">
+                <div id="horizontal-form">
+                    <form class="form-horizontal" role="form" id="frmMaintainance">
+                        <div class="form-group">
+                            <input type="hidden" id="hidId" value="00000000-0000-0000-0000-000000000000" />
+                            <label for="txtCustomerName" class="col-sm-2 control-label ">Tên khách hàng</label>
+                            <div class="col-sm-10">
+                                <input type="text" name="txtCustomerName" class="form-control" id="txtCustomerName">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="txtCustomerAddress" class="col-sm-2 control-label ">Địa chỉ</label>
+                            <div class="col-sm-10">
+                                <input type="text" name="txtCustomerAddress" class="form-control" id="txtCustomerAddress" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="txtCustomerMobile" class="col-sm-2 control-label ">Điện thoại</label>
+                            <div class="col-sm-10">
+                                <input type="text" name="txtCustomerMobile" class="form-control" id="txtCustomerMobile" />
+                            </div>
+                        </div>
+
+                        <div class="form-group">                            
+                            <label for="txtShipName" class="col-sm-2 control-label ">Tên người nhận (Địa chỉ giao hàng)</label>
+                            <div class="col-sm-10">
+                                <input type="text" name="txtShipName" class="form-control" id="txtShipName">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="txtShipAddress" class="col-sm-2 control-label ">Địa chỉ (Địa chỉ giao hàng)</label>
+                            <div class="col-sm-10">
+                                <input type="text" name="txtShipAddress" class="form-control" id="txtShipAddress" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="txtShipMobile" class="col-sm-2 control-label ">Điện thoại (Địa chỉ giao hàng)</label>
+                            <div class="col-sm-10">
+                                <input type="text" name="txtShipMobile" class="form-control" id="txtShipMobile" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="txtCustomerMessage" class="col-sm-2 control-label ">Ghi chú</label>
+                            <div class="col-sm-10">
+                                <input type="text" name="txtCustomerMessage" class="form-control" id="txtCustomerMessage" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="txtCustomerFacebook" class="col-sm-2 control-label ">Facebook</label>
+                            <div class="col-sm-10">
+                                <input type="text" name="txtCustomerFacebook" class="form-control" id="txtCustomerFacebook" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="txtShippingFee" class="col-sm-2 control-label ">Phí ship (nếu có)</label>
+                            <div class="col-sm-10">
+                                <input type="number" value="0" name="txtShippingFee" class="form-control" id="txtShippingFee" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label ">Phương thức thanh toán</label>
+                            <div class="col-sm-10">
+                                <select id="ddlPaymentMethod" class="form-control"></select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label f class="col-sm-2 control-label ">Trạng thái</label>
+                            <div class="col-sm-10">
+                                <select id="ddlBillStatus" class="form-control"></select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="txtCode" class="col-sm-2 control-label ">Mã Code</label>
+                            <div class="col-sm-10">
+                                <input type="text" name="txtCode" class="form-control" id="txtCode" />
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label ">Chi tiết đơn hàng</label>
+                            <div class="col-sm-10">
+                                <table class="table table-bordered">
+                                    <thead>
+                                        <tr>                                           
+                                            <th>Sản phẩm</th>
+                                            <th>Mã sản phẩm</th>
+                                            <th>Số lượng</th>
+                                            <th>Đơn giá</th>
+                                            <th>Thành tiền</th>
+                                            <td></td>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="tbl-bill-details"></tbody>
+                                    <tfoot>
+                                        <tr>
+                                            <td colspan="5">
+                                                @*<button class="btn btn-xs btn-success" id="btnAddDetail" type="button">Thêm</button>*@
+                                                Tổng: <span id="lblTotalAmount"></span>
+                                            </td>
+                                        </tr>
+                                    </tfoot>
+                                </table>
+                                <script type="x-tmpl-mustache" id="template-table-bill-details">
+                                    <tr data-id="{{Id}}">
+                                        <td>
+                                            @*{{{Products}}}*@
+                                            {{Products}}
+                                        </td>
+                                        <td>
+                                            {{Code}}
+                                        </td>
+                                        <td><input type="number" class="txtQuantity form-control" value="{{Quantity}}" min="1" disabled="disabled" /></td>
+                                        <td>
+                                            <input type="hidden" value="{{Price}}" class="hidPrice" />
+                                            <span class="lblPrice">{{Price}}</span>
+                                        </td>
+                                        <td>
+                                            <input type="hidden" value="{{TotalNumber}}" class="hidTotal" />
+                                            <span class="lblTotal">{{Total}}</span>
+                                        </td>
+                                        <td><button class="btn btn-xs btn-danger btn-delete-detail" data-id="{{Id}}" type="button"><i class="fa fa-trash"></i></button></td>
+                                    </tr>
+                                </script>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div class="col-sm-offset-2 col-sm-10">
+                    <button type="button" id="btn-save" class="btn btn-success">Lưu lại</button>
+                    <button type="button" id="btnConfirm" class="btn btn-success">Xác nhận thanh toán</button>
+                    <button type="button" id="btnPending" class="btn btn-warning">Tạm hoãn</button>
+                    <button type="button" id="btn-cancel" class="btn btn-primary">Hủy đơn</button>
+                    <button type="button" id="btnExport" class="btn btn-default">Xuất hóa đơn</button>
+
+                    <button type="button" data-dismiss="modal" class="btn btn-danger">Đóng</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

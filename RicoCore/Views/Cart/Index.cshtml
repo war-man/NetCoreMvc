@@ -1,0 +1,245 @@
+﻿@{
+    ViewData["MetaTitle"] = "Giỏ hàng của bạn | Rèm Đức Trung";
+    ViewData["MetaKeywords"] = "Giỏ hàng";
+    ViewData["MetaDescription"] = "Giỏ hàng của bạn | Rèm Đức Trung";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section Scripts{    
+    <script src="~/client-app/controllers/cart/index.js" asp-append-version="true"></script>
+    <script>
+        var cartObj = new CartController();
+        cartObj.initialize();
+    </script>
+}
+
+<section class="main-container col1-layout">
+    <div class="main container">
+        <div class="col-main">
+            <div class="shopping-cart-inner">
+                <div class="page-title">
+                    <h1>Tổng kết giỏ hàng</h1>
+                </div>
+                <div class="page-content">
+                    <ul class="step">
+                        <li class="current-step"><span>01. Tổng kết</span></li>
+                        <li><span>02. Thông tin thanh toán</span></li>
+                        <li><span>03. Địa chỉ</span></li>
+                        <li><span>04. Vận chuyển</span></li>
+                        <li><span>05. Thanh toán</span></li>
+                    </ul>
+                    <div class="heading-counter warning">Giỏ hàng của bạn: <span>2 Sản phẩm</span> </div>
+                    <div class="order-detail-content">
+                        <table class="table table-bordered table-responsive jtv-cart-summary">
+                            <thead>
+                                <tr>
+                                    <th class="cart_product">Sản phẩm</th>
+                                    <th>Mô tả</th>
+                                    <th>Giá bán</th>
+                                    <th>Số lượng</th>
+                                    <th>Thành tiền</th>
+                                    <th class="action"><i class="fa fa-trash-o"></i></th>
+                                </tr>
+                            </thead>
+                            <tbody id="table-cart-content"></tbody>
+                            @*<tbody>
+                                <tr>
+                                    <td class="cart_product"><a href="#"><img src="images/products/img02.jpg" alt="Product"></a></td>
+                                    <td class="cart_description">
+                                        <p class="product-name"><a href="#"> Product Title Here </a></p>
+                                        <small class="cart_ref">SKU : #987654</small><br>
+                                        <small><a href="#">Màu : Pink</a></small><br>
+                                        <small><a href="#">Color : Pink</a></small><br>
+                                    </td>
+                                    <td class="price"><span>$99.00</span></td>
+                                    <td class="qty">
+                                        <input class="form-control input-sm" type="text" value="1">
+                                        <a href="#"><i class="fa fa-plus"></i></a> <a href="#"><i class="fa fa-minus"></i></a>
+                                    </td>
+                                    <td class="price"><span>$99.00</span></td>
+                                    <td class="action"><a href="#">Delete item</a></td>
+                                </tr>
+                            </tbody>*@
+                            <tfoot>
+                                <tr>
+                                    <td colspan="4">Tổng tiền (đã bao gồm thuế)</td>
+                                    <td colspan="2"><span id="lblTotalAmount"></span></td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                        <script id="template-cart" type="x-tmpl-mustache">
+                            <tr>
+                                <td class="cart_product">
+                                    <a href="{{Url}}" title="{{ProductItemName}}"><img src="{{Image}}" alt="{{ProductItemName}}"></a>
+                                    @*<a href="{{Url}}" title="{{ProductItemName}}"><img src="/client-side/images/products/img02.jpg" alt="{{ProductItemName}}"></a>*@
+                                    @*<a href="{{Url}}"><img src="{{Image}}" alt="{{ProductName}}"></a>*@
+                                </td>
+                                <td class="cart_description">
+                                    <p class="product-name"><a href="{{Url}}" title="{{ProductItemName}}">{{ProductItemName}}</a></p>
+                                    <small>Mã sản phẩm : {{Code}} </small><br>
+                                    <small>Màu : <img src="{{ColorImage}}" alt="{{ProductItemName}}"> {{ColorName}}</small><br>
+                                    @*<small><a href="#">Mã sản phẩm : </a></small><br>
+                                    <small><a href="#">Màu : {{{Colors}}} {{ColorCode}}</a></small><br>*@
+
+                                </td>
+                                <td class="price product-item-price"><span>{{Price}}</span></td>
+                                <td class="qty">
+                                    <input class="form-control input-sm txtQuantity" min="1" type="text" data-id="{{ProductItemId}}" value="{{Quantity}}" id="txtQuantity" name="txtQuantity">
+                                    @*<button class="increase items-count" type="button"><i class="fa fa-plus">&nbsp;</i></button>
+                                    <button class="reduced items-count" type="button"><i class="fa fa-minus">&nbsp;</i></button>*@
+                                    @*<button onClick="var result = document.getElementById('txtQuantity'); var qty = result.value; if( !isNaN( qty )) result.value++;return false;" class="increase items-count" type="button"><i class="fa fa-plus">&nbsp;</i></button>
+                                    <button onClick="var result = document.getElementById('txtQuantity'); var qty = result.value; if( !isNaN( qty ) &amp;&amp; qty &gt; 0 ) result.value--;return false;" class="reduced items-count" type="button"><i class="fa fa-minus">&nbsp;</i></button>*@
+                                    @*<a href="#"><i class="fa fa-plus"></i></a>
+        <a href="#"><i class="fa fa-minus"></i></a>*@
+                                </td>
+                                <td class="price product-item-total"><span>{{Amount}}</span></td>                                
+                                <td class="action"><a href="javascript:;" class="btn-delete" data-id="{{ProductItemId}}"><i class="icon-close"></i></a></td>
+                            </tr>
+                        </script>
+                        <div class="cart_navigation">
+                            @*<button class="button continue-shopping" title="Tiếp tục mua hàng" type="button"><span>Tiếp tục mua hàng</span></button>
+                            <button class="button btn-proceed-checkout" title="Tiến hành đặt hàng" type="button" onclick="window.location.href='/dat-hang'"><span>Tiến hành đặt hàng</span></button>*@
+
+                            <a class="continue-btn continue-shopping" href="/gio-hang" title="Tiếp tục mua hàng"><i class="fa fa-arrow-left"> </i>&nbsp; Tiếp tục chọn thêm rèm</a>
+                            <a id="btnClearAll" href="javascript:;" title="Xóa giỏ hàng"><i class="fa fa-remove"> </i>&nbsp; Xóa giỏ hàng</a>
+                            <a class="checkout-btn btn-proceed-checkout" href="/dat-hang" title="Tiến hành đặt hàng"><i class="fa fa-check"></i> Tiến hành đặt hàng</a>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            @*<div class="crosssel">
+                <div class="jtv-title">
+                    <h2>Bạn có thể yêu thích</h2>
+                </div>
+                <div class="category-products">
+                    <ul class="products-grid">
+                        <li class="item col-lg-3 col-md-3 col-sm-4 col-xs-6">
+                            <div class="item-inner">
+                                <div class="item-img">
+                                    <div class="item-img-info">
+                                        <a class="product-image" title="Product Title Here ref=" single_product.html"> <img alt="Product Title Here" " src="images/products/img10.jpg"> </a>
+                                        <div class="jtv-box-hover">
+                                            <ul class="add-to-links">
+                                                <li><a class="link-quickview" href="quick_view.html"><i class="icon-magnifier-add icons"></i><span class="hidden">Quick View</span></a></li>
+                                                <li><a class="link-wishlist" href="wishlist.html"><i class="icon-heart icons"></i><span class="hidden">Wishlist</span></a></li>
+                                                <li><a class="link-compare" href="compare.html"><i class="icon-shuffle icons"></i><span class="hidden">Compare</span></a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="item-info">
+                                    <div class="info-inner">
+                                        <div class="item-title"> <a title="Product Title Here" ref="single_product.html"> Product Title Here </a> </div>
+                                        <div class="item-content">
+                                            <div class="rating"> <i class="fa fa-star-o"></i> <i class="fa fa-star-o"></i> <i class="fa fa-star-o"></i> <i class="fa fa-star-o"></i> <i class="fa fa-star-o"></i> </div>
+                                            <div class="item-price">
+                                                <div class="price-box"> <span class="regular-price"> <span class="price">$155.00</span> </span> </div>
+                                            </div>
+                                            <div class="action">
+                                                <button class="button btn-cart" type="button" title="" data-original-title="Add to Cart"><span>Add to Cart</span> </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="item col-lg-3 col-md-3 col-sm-4 col-xs-6">
+                            <div class="item-inner">
+                                <div class="item-img">
+                                    <div class="item-img-info">
+                                        <a class="product-image" title="Product Title Here ref=" single_product.html"> <img alt="Product Title Here" " src="images/products/img01.jpg"> </a>
+                                        <div class="jtv-box-hover">
+                                            <ul class="add-to-links">
+                                                <li><a class="link-quickview" href="quick_view.html"><i class="icon-magnifier-add icons"></i><span class="hidden">Quick View</span></a></li>
+                                                <li><a class="link-wishlist" href="wishlist.html"><i class="icon-heart icons"></i><span class="hidden">Wishlist</span></a></li>
+                                                <li><a class="link-compare" href="compare.html"><i class="icon-shuffle icons"></i><span class="hidden">Compare</span></a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="item-info">
+                                    <div class="info-inner">
+                                        <div class="item-title"> <a title="Product Title Here" ref="single_product.html"> Product Title Here </a> </div>
+                                        <div class="item-content">
+                                            <div class="rating"> <i class="fa fa-star-o"></i> <i class="fa fa-star-o"></i> <i class="fa fa-star-o"></i> <i class="fa fa-star-o"></i> <i class="fa fa-star-o"></i> </div>
+                                            <div class="item-price">
+                                                <div class="price-box"> <span class="regular-price"> <span class="price">$225.00</span> </span> </div>
+                                            </div>
+                                            <div class="action">
+                                                <button class="button btn-cart" type="button" title="" data-original-title="Add to Cart"><span>Add to Cart</span> </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="item col-lg-3 col-md-3 col-sm-4 col-xs-6">
+                            <div class="item-inner">
+                                <div class="item-img">
+                                    <div class="item-img-info">
+                                        <a class="product-image" title="Product Title Here ref=" single_product.html"> <img alt="Product Title Here" " src="images/products/img02.jpg"> </a>
+                                        <div class="jtv-box-hover">
+                                            <ul class="add-to-links">
+                                                <li><a class="link-quickview" href="quick_view.html"><i class="icon-magnifier-add icons"></i><span class="hidden">Quick View</span></a></li>
+                                                <li><a class="link-wishlist" href="wishlist.html"><i class="icon-heart icons"></i><span class="hidden">Wishlist</span></a></li>
+                                                <li><a class="link-compare" href="compare.html"><i class="icon-shuffle icons"></i><span class="hidden">Compare</span></a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="item-info">
+                                    <div class="info-inner">
+                                        <div class="item-title"> <a title="Product Title Here" ref="single_product.html"> Product Title Here </a> </div>
+                                        <div class="item-content">
+                                            <div class="rating"> <i class="fa fa-star-o"></i> <i class="fa fa-star-o"></i> <i class="fa fa-star-o"></i> <i class="fa fa-star-o"></i> <i class="fa fa-star-o"></i> </div>
+                                            <div class="item-price">
+                                                <div class="price-box"> <span class="regular-price"> <span class="price">$99.00</span> </span> </div>
+                                            </div>
+                                            <div class="action">
+                                                <button class="button btn-cart" type="button" title="" data-original-title="Add to Cart"><span>Add to Cart</span> </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="item col-lg-3 col-md-3 col-sm-4 col-xs-6">
+                            <div class="item-inner">
+                                <div class="item-img">
+                                    <div class="item-img-info">
+                                        <a class="product-image" title="Product Title Here ref=" single_product.html"> <img alt="Product Title Here" " src="images/products/img03.jpg"> </a>
+                                        <div class="new-label new-top-left">new</div>
+                                        <div class="jtv-box-hover">
+                                            <ul class="add-to-links">
+                                                <li><a class="link-quickview" href="quick_view.html"><i class="icon-magnifier-add icons"></i><span class="hidden">Quick View</span></a></li>
+                                                <li><a class="link-wishlist" href="wishlist.html"><i class="icon-heart icons"></i><span class="hidden">Wishlist</span></a></li>
+                                                <li><a class="link-compare" href="compare.html"><i class="icon-shuffle icons"></i><span class="hidden">Compare</span></a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="item-info">
+                                    <div class="info-inner">
+                                        <div class="item-title"> <a title="Product Title Here" ref="single_product.html"> Product Title Here </a> </div>
+                                        <div class="item-content">
+                                            <div class="rating"> <i class="fa fa-star-o"></i> <i class="fa fa-star-o"></i> <i class="fa fa-star-o"></i> <i class="fa fa-star-o"></i> <i class="fa fa-star-o"></i> </div>
+                                            <div class="item-price">
+                                                <div class="price-box">
+                                                    <p class="special-price"> <span class="price-label">Special Price</span> <span class="price"> $156.00 </span> </p>
+                                                    <p class="old-price"> <span class="price-label">Regular Price:</span> <span class="price"> $167.00 </span> </p>
+                                                </div>
+                                            </div>
+                                            <div class="action">
+                                                <button class="button btn-cart" type="button" title="" data-original-title="Add to Cart"><span>Add to Cart</span> </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>*@
+        </div>
+    </div>
+</section>

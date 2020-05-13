@@ -1,0 +1,418 @@
+﻿@model RicoCore.Models.ProductViewModels.DetailViewModel
+@{   
+    var productItems = Model.ProductDetail.Items;
+    var currentItem = Model.ProductDetail.CurrentItem;
+    ViewData["MetaTitle"] = @Html.Raw(currentItem.MetaTitle);
+    ViewData["MetaKeywords"] = @Html.Raw(currentItem.MetaKeywords);
+    ViewData["MetaDescription"] = @Html.Raw(currentItem.MetaDescription);
+    var categoryName = Model.CategoryName;
+    var categoryLink = Model.CategoryUrl;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<!-- Breadcrumbs -->
+@section Scripts{
+    <script src="~/client-app/controllers/product/details.js"></script>
+    <script>
+        var productObj = new ProductDetailController();
+        productObj.initialize();
+    </script>
+}
+<!-- Breadcrumbs -->
+<div class="breadcrumbs">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12">
+                <ul>
+                    <li class="home"> <a href="/" title="Trang chủ">Trang chủ</a> <span>/</span> </li>
+                    <li> <a title="@categoryName" href="/@categoryLink">@categoryName</a><span>&raquo;</span></li>
+                    <li><strong>@currentItem.Name</strong></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Breadcrumbs End -->
+<!-- Main Container -->
+<section class="main-container col1-layout">
+    <div class="main">
+        <div class="container">
+            <div class="row">
+                <div class="col-main">
+                    <div class="product-view">
+                        <div class="product-essential">
+                            <form action="#" method="post" id="product">
+                                <div class="product-img-box col-lg-5 col-sm-6 col-xs-12">
+                                    <input type="hidden" class="hid-id" value="@currentItem.Id" />
+                                    <input type="hidden" class="hid-url" value="@currentItem.Url" />
+                                    <div class="new-label new-top-left"> New </div>
+                                    <div class="product-image">
+                                        @*<div class="product-full"> <img id="product-zoom" src="@product.Image" data-zoom-image="@product.Image" alt="@product.Name" /> </div>*@
+                                        <div class="product-full">
+                                            <img class="product-zoom image-detail" data-image="@currentItem.Image1" src="@currentItem.Image1" data-zoom-image="@currentItem.Image1" alt="@currentItem.Image1Alt" />
+                                            @*<img class="image-detail" src="@currentItem.Image1" data-zoom-image="@currentItem.Image1" alt="@currentItem.Image1Alt" />*@
+                                        </div>
+                                        @*<div class="product-full"> <img id="product-zoom" src="images/products/img02.jpg" data-zoom-image="images/products/img02.jpg" alt="product-image" /> </div>*@
+                                        @*@if (Model.ProductImages.Count > 0)
+            {*@
+                                        <div class="more-views">
+                                            <div class="slider-items-products">
+                                                <div id="gallery_01" class="product-flexslider hidden-buttons product-img-thumb">
+                                                    <div class="slider-items slider-width-col4 block-content">
+                                                        @*@foreach (var item in Model.ProductImages)
+                            {
+                                <div class="more-views-items"> <a href="javascript:;" data-image="@item.Path" data-zoom-image="@item.Path"> <img id="product-zoom" src="@item.Path" alt="@item.Caption" /> </a></div>
+                            }*@
+                                                        <div class="more-views-items"> <a href="javascript:;" id="mini-img-1" data-image="@currentItem.Image1" data-zoom-image="@currentItem.Image1"> <img src="@currentItem.Image1" alt="@currentItem.Image1Alt" /> </a></div>
+                                                        <div class="more-views-items"> <a href="javascript:;" id="mini-img-2" data-image="@currentItem.Image2" data-zoom-image="@currentItem.Image2"> <img src="@currentItem.Image2" alt="@currentItem.Image2Alt" /> </a></div>
+                                                        @if (!string.IsNullOrEmpty(currentItem.Image3))
+                                                        {
+                                                            <div class="more-views-items"> <a href="javascript:;" id="mini-img-3" data-image="@currentItem.Image3" data-zoom-image="@currentItem.Image3"> <img src="@currentItem.Image3" alt="@currentItem.Image3Alt" /> </a></div>
+                                                        }
+                                                        @if (!string.IsNullOrEmpty(currentItem.Image4))
+                                                        {
+                                                            <div class="more-views-items"> <a href="javascript:;" id="mini-img-4" data-image="@currentItem.Image4" data-zoom-image="@currentItem.Image4"> <img src="@currentItem.Image4" alt="@currentItem.Image4Alt" /> </a></div>
+                                                        }
+                                                        @if (!string.IsNullOrEmpty(currentItem.Image5))
+                                                        {
+                                                            <div class="more-views-items"> <a href="javascript:;" id="mini-img-5" data-image="@currentItem.Image5" data-zoom-image="@currentItem.Image5"> <img src="@currentItem.Image5" alt="@currentItem.Image5Alt" /> </a></div>
+                                                        }
+                                                        @*<div class="more-views-items"> <a href="javascript:;" data-image="~/client-side/images/products/img02.jpg" data-zoom-image="~/client-side/images/products/img02.jpg"> <img class="product-zoom" src="~/client-side/images/products/img02.jpg" alt="@currentItem.Image1Alt" /> </a></div>
+                            <div class="more-views-items"> <a href="#" data-image="~/client-side/images/products/img02.jpg" data-zoom-image="~/client-side/images/products/img02.jpg"> <img class="product-zoom" src="~/client-side/images/products/img02.jpg" alt="product-image" /> </a></div>
+                            <div class="more-views-items"> <a href="#" data-image="~/client-side/images/products/img02.jpg" data-zoom-image="~/client-side/images/products/img02.jpg"> <img class="product-zoom" src="~/client-side/images/products/img02.jpg" alt="product-image" /> </a></div>
+                            <div class="more-views-items"> <a href="#" data-image="~/client-side/images/products/img02.jpg" data-zoom-image="~/client-side/images/products/img02.jpg"> <img class="product-zoom" src="~/client-side/images/products/img02.jpg" alt="product-image" /> </a></div>
+                            <div class="more-views-items"> <a href="#" data-image="~/client-side/images/products/img02.jpg" data-zoom-image="~/client-side/images/products/img02.jpg"> <img class="product-zoom" src="~/client-side/images/products/img02.jpg" alt="product-image" /> </a> </div>
+                            <div class="more-views-items"> <a href="#" data-image="~/client-side/images/products/img02.jpg" data-zoom-image="~/client-side/images/products/img02.jpg"> <img class="product-zoom" src="~/client-side/images/products/img02.jpg" alt="product-image" /> </a></div>*@
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        @*}*@
+                                    </div>
+                                    <!-- end: more-images -->
+                                </div>
+                                <div class="product-shop col-lg-7 col-sm-6 col-xs-12">
+                                    <div class="product-next-prev"> <a class="product-next" href="javascript:;"><span></span></a> <a class="product-prev" href="javascript:;"><span></span></a> </div>
+                                    <div class="product-name">
+                                        <input type="hidden" id="productUrl" value="@Model.ProductUrl" />
+                                        <a href="/@Model.ProductUrl/mau-rem=@currentItem.Url" title="@currentItem.Name"><h1>@currentItem.Name</h1></a>
+                                    </div>
+                                    @*<div class="rating">
+                                        <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star-o"></i>
+                                        <p class="rating-links">
+                                            <a href="javascript:;">4 Đánh giá(s)</a>
+                                            <span class="separator">|</span> <a href="javascript:;"><i class="fa fa-pencil"></i> viết đánh giá</a>
+                                        </p>
+                                    </div>*@
+                                    <div class="price-block">
+                                        <div class="price-box">
+                                            @if (currentItem.PromotionPrice.HasValue && currentItem.PromotionPrice != 0)
+                                            {
+                                                <p class="special-price"> <span class="price-label">Giá đặc biệt</span> <span id="product-price-48" class="price"> @currentItem.PromotionPrice.Value.ToString("N0") </span> </p>
+                                                <p class="old-price"> <span class="price-label">Giá cũ:</span> <span class="price"> @currentItem.Price.ToString("N0") </span> </p>
+                                            }
+                                            else
+                                            {
+                                                <p class="special-price"> <span class="price-label">Giá đặc biệt</span> <span id="product-price-48" class="price"> @currentItem.Price.ToString("N0") </span> </p>
+                                            }
+
+                                        </div>
+                                    </div>
+                                    <div class="info-other">
+                                        <p>Mã sản phẩm: <span>@currentItem.Code</span></p>
+                                        @*@if (Model.Tags.Count > 0)
+            {
+                <p>
+                    Tags:
+                    @foreach (var tag in Model.Tags)
+                    {
+                        <a href="/tags/@tag.Id">@tag.Name</a>
+                    }
+                </p>
+            }*@
+
+                                        @*<p>Availability: <span class="in-stock">In stock</span></p>
+            <p>Condition: New</p>*@
+                                    </div>
+                                    <div class="form-option">
+                                        <p class="form-option-title">Lựa chọn:</p>
+                                        <div class="attributes">
+                                            <div class="attribute-label">Màu:</div>
+                                            <input type="hidden" id="chooseColor" />
+                                            <div class="attribute-list">
+                                                @if (productItems.Count() > 0)
+                                                {
+                                                    <div class="colorList">
+                                                        @foreach (var color in productItems)
+                                                        {
+                                                        <div class="color-item">
+                                                            @if (currentItem.Url == color.Url)
+                                                            {
+                                                            <a href="/@Model.ProductUrl/mau-rem=@color.Url"><img class="pick-color borderimg" src="@color.ColorImage" alt="@color.Name" height="40" data-id="@color.Id" data-url="@color.Url" /><span>@color.ColorName</span></a>
+                                                            }
+                                                            else
+                                                            {
+                                                            <a href="/@Model.ProductUrl/mau-rem=@color.Url">
+                                                                <img class="pick-color" src="@color.ColorImage" alt="@color.Name" height="40" data-id="@color.Id" data-url="@color.Url" /><span>@color.ColorName</span>
+                                                            </a>
+                                                            }
+                                                                @*<img class="pick-color" src="@color.ColorImage" alt="@color.ColorName" height="40" data-id="@color.Id" />*@                                                                
+                                                                @*</a>*@
+                                                        </div>
+                                                        }
+                                                    </div>
+                                                }
+                                                @*<select asp-items="Model.Colors" id="ddlColorId"></select>*@
+                                                @*<ul class="list-color">
+                        <li style="background:#DD4132;"><a href="#">Fiesta</a></li>
+                        <li style="background:#4F84C4;"><a href="#">Marina</a></li>
+                        <li style="background:#EE82EE;" class="active"><a href="#">Violet</a></li>
+                        <li style="background:#92B558;"><a href="#">Green</a></li>
+                        <li style="background:#191970;"><a href="#">MidnightBlue</a></li>
+                        <li style="background:#ff0000;"><a href="#">red</a></li>
+                    </ul>*@
+                                            </div>
+                                        </div>
+                                        <div class="add-to-box">
+                                            <div class="add-to-cart-detail">
+                                                <div class="pull-left">
+                                                    <div class="custom pull-left">
+                                                        <label>Số lượng :</label>
+                                                        <button class="reduced items-count" type="button"><i class="fa fa-minus">&nbsp;</i></button>
+                                                        <input type="text" class="input-text qty" title="Qty" value="1" maxlength="12" id="txtQuantity" name="txtQuantity">
+                                                        <button class="increase items-count" type="button"><i class="fa fa-plus">&nbsp;</i></button>
+                                                        @*<button onClick="var result = document.getElementById('txtQuantity'); var qty = result.value; if( !isNaN( qty ) &amp;&amp; qty &gt; 0 ) result.value--;return false;" class="reduced items-count" type="button"><i class="fa fa-minus">&nbsp;</i></button>
+                                                        <input type="text" class="input-text qty" title="Qty" value="1" maxlength="12" id="txtQuantity" name="txtQuantity">
+                                                        <button onClick="var result = document.getElementById('txtQuantity'); var qty = result.value; if( !isNaN( qty )) result.value++;return false;" class="increase items-count" type="button"><i class="fa fa-plus">&nbsp;</i></button>*@
+                                                    </div>
+                                                </div>
+                                                <button id="AddDetailToCart" class="button btn-cart" title="Thêm vào giỏ hàng" type="button" data-id="@currentItem.Id"><span>Thêm vào giỏ hàng</span></button>
+                                                @*<button onClick="productAddToCartForm.submit(this)" class="button btn-cart" title="Thêm vào giỏ" type="button" data-id="@Model.Product.Id">Thêm vào giỏ hàng</span></button>*@
+                                            </div>
+                                            @*<div class="email-addto-box">
+                                                <ul class="add-to-links">
+                                                    <li> <a class="link-wishlist" href="/yeu-thich" title="Yêu thích"><span>Thêm vào yêu thích</span></a></li>
+                                                    <li><span class="separator">|</span> <a class="link-compare" href="/so-sanh" title="So sánh"><span>Thêm vào so sánh</span></a></li>
+                                                </ul>
+                                            </div>*@
+                                        </div>
+                                    </div>
+                                    <div class="short-description">
+                                        @if (!string.IsNullOrEmpty(currentItem.Content))
+                                        {
+                                            <h2>Mô tả</h2>
+                                            @*<p>@currentItem.Content</p>*@
+                                            <p>@Html.Raw(currentItem.Content)</p>
+                                        }
+                                    </div>
+
+
+                                    @*<div class="form-share">
+                                        <div class="sendtofriend-print">
+                                            <a href="javascript:print();"><i class="fa fa-print"></i> In ra</a>
+                                            <a href="javascript:;"><i class="fa fa-envelope-o fa-fw"></i> Gửi mail cho bạn</a>
+                                        </div>
+                                    </div>*@
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                @*<div class="product-collateral col-lg-12 col-sm-12 col-xs-12">
+                    <div class="add_info">
+                        <ul id="product-detail-tab" class="nav nav-tabs product-tabs">
+                            <li class="active"> <a href="#product_tabs_description" data-toggle="tab"> Thông tin chi tiết </a> </li>                          
+                        </ul>
+                        <div id="productTabContent" class="tab-content">
+                            <div class="tab-pane fade in active" id="product_tabs_description">
+                                <div class="std">
+                                    @Html.Raw(currentItem.Content)
+                                </div>
+                            </div>
+                            
+                        </div>
+                    </div>
+                </div>*@
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Main Container End -->
+
+<!-- Related Products Slider -->
+<div class="container">
+    <div class="related-section">
+        <div class="slider-items-products">
+            <div class="related-block">
+                <div class="jtv-block-inner">
+                    <div class="block-title">
+                        <h2>Sản phẩm cùng thuộc danh mục @Model.CategoryName</h2>
+                    </div>
+                </div>
+                <div id="related-products-slider" class="product-flexslider hidden-buttons">
+                    <div class="slider-items slider-width-col4 products-grid block-content">
+                        @if (Model.RelatedProducts.Count() > 0)
+                        {
+                            @foreach (var item in Model.RelatedProducts)
+                            {
+                                var url = item.ProductUrl + "/mau-rem=";
+                                @if (item.ProductItems.Count() > 0)
+                                {
+                                    url = url + item.ProductItems[0].Url;
+                                }
+                                else
+                                {
+                                    url = url + "chua-co";
+                                }
+
+                                <div class="item">
+                                    <div class="item-inner">
+                                        <div class="item-img">
+                                            @*<div class="item-img-info">*@
+                                            <div>
+                                                @if (item.ProductItems.Count() > 0)
+                                                {
+                                                    <input type="hidden" class="hid-id" value="@item.ProductItems[0].Id" />
+                                                    <input type="hidden" class="hid-url" value="@item.ProductItems[0].Url" />
+                                                    @*<a class="product-image" title="@item.ProductItems[0].Name" href="/@url"> <img alt="@item.ProductItems[0].Image1Alt" src="~/client-side/images/products/img15.jpg"> </a>*@
+                                                    <a class="product-image" title="@item.ProductItems[0].Name" href="/@url"> <img alt="@item.ProductItems[0].Image1Alt" src="@item.ProductItems[0].Image1"> </a>
+                                                }
+                                                else
+                                                {
+                                                    <a class="product-image" title="Chưa có" href="/@url"> <img alt="Chưa có ảnh" src="~/client-side/images/products/img15.jpg"> </a>
+                                                }
+
+                                                @*<div class="jtv-box-hover">
+            <ul class="add-to-links">
+                <li><a class="link-quickview" href="xem-nhanh" title="Xem nhanh"><i class="icon-magnifier-add icons"></i><span class="hidden">Xem nhanh</span></a></li>
+                <li><a class="link-wishlist" href="yeu-thich" title="Yêu thích"><i class="icon-heart icons"></i><span class="hidden">Yêu thích</span></a></li>
+                <li><a class="link-compare" href="so-sanh" title="So sánh"><i class="icon-shuffle icons"></i><span class="hidden">So sánh</span></a></li>
+            </ul>
+        </div>*@
+                                            </div>
+                                            </div>
+                                        <div class="item-info">
+                                            <div class="info-inner">
+                                                <div class="item-title">
+                                                    @if (item.ProductItems.Count() > 0)
+                                                    {
+                                                        <a title="@item.ProductItems[0].Name" href="/@url"> @item.ProductItems[0].Name </a>
+                                                    }
+                                                    else
+                                                    {
+                                                        <a title="Chưa có" href="/@url"> Sản phẩm chưa bán </a>
+                                                    }
+
+                                                </div>
+                                                <div class="item-content">
+
+                                                    @*<div class="rating"> 
+                                                    <i class="fa fa-star-o"></i> 
+                                                    <i class="fa fa-star-o"></i> 
+                                                    <i class="fa fa-star-o"></i> 
+                                                    <i class="fa fa-star-o"></i> 
+                                                    <i class="fa fa-star-o"></i> 
+                                                    </div>*@
+
+                                                    <div class="item-price">
+                                                        <div class="price-box">
+                                                            @if (item.ProductItems.Count() > 0)
+                                                            {
+                                                                if (item.ProductItems[0].Price < item.ProductItems[0].OriginalPrice)
+                                                                {
+                                                                    <p class="special-price"> <span class="price-label">Giá mới</span> <span class="price">@item.ProductItems[0].Price.ToString("N0")</span> </p>
+                                                                    <p class="old-price"> <span class="price-label">Giá cũ:</span> <span class="price">@item.ProductItems[0].OriginalPrice.ToString("N0")</span> </p>
+                                                                }                                                                
+                                                                else
+                                                                {
+                                                                    <span class="regular-price"> <span class="price">@item.ProductItems[0].Price.ToString("N0")</span> </span>
+                                                                }
+                                                               
+                                                            }
+                                                        </div>
+
+                                                    </div>
+                                                    <div class="action">
+                                                        @if (item.ProductItems.Count() > 0)
+                                                        {
+                                                            <button class="button add-to-cart" type="button" title="Thêm vào giỏ hàng" data-original-title="Thêm vào giỏ hàng" data-id="@item.ProductItems[0].Id"><span>Thêm vào giỏ hàng</span> </button>
+                                                        }
+                                                        else
+                                                        {
+                                                            <button class="button add-to-cart" type="button" title="Thêm vào giỏ hàng" data-original-title="Thêm vào giỏ hàng" data-id="Chưa có"><span>Thêm vào giỏ hàng</span> </button>
+                                                        }
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                        }
+
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Related Products Slider End -->
+
+@*@if (Model.UpsellProducts.Count > 0)
+{    
+    <div class="container">
+        <div class="upsell-section">
+            <div class="slider-items-products">
+                <div class="upsell-block">
+                    <div class="jtv-block-inner">
+                        <div class="block-title">
+                            <h2>Sản phẩm khuyến mãi</h2>
+                        </div>
+                    </div>
+                    <div id="upsell-products-slider" class="product-flexslider hidden-buttons">
+                        <div class="slider-items slider-width-col4 products-grid block-content">
+                            @foreach (var item in Model.UpsellProducts)
+                            {
+                                var url = "san-pham/" + item.Url;
+                                <div class="item">
+                                    <div class="item-inner">
+                                        <div class="item-img">
+                                            <div class="item-img-info">
+                                                <a class="product-image" title="@item.Name" href="/@url"> <img alt="@item.Name" src="~/client-side/images/products/img01.jpg"> </a>
+                                                <div class="jtv-box-hover">
+                                                    <ul class="add-to-links">
+                                                        <li><a class="link-quickview" href="xem-nhanh" title="Xem nhanh"><i class="icon-magnifier-add icons"></i><span class="hidden">Xem nhanh</span></a></li>
+                                                        <li><a class="link-wishlist" href="yeu-thich" title="Yêu thích"><i class="icon-heart icons"></i><span class="hidden">Yêu thích</span></a></li>
+                                                        <li><a class="link-compare" href="so-sanh" title="So sánh"><i class="icon-shuffle icons"></i><span class="hidden">So sánh</span></a></li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="item-info">
+                                            <div class="info-inner">
+                                                <div class="item-title"> <a title="@item.Name" href="/@url"> @item.Name </a> </div>
+                                                <div class="item-content">
+                                                    <div class="rating"> <i class="fa fa-star-o"></i> <i class="fa fa-star-o"></i> <i class="fa fa-star-o"></i> <i class="fa fa-star-o"></i> <i class="fa fa-star-o"></i> </div>
+                                                    <div class="item-price">
+                                                        <div class="price-box"> <span class="regular-price"> <span class="price">@item.Price.ToString("N0")</span> </span> </div>
+                                                    </div>
+                                                    <div class="action">
+                                                        <button class="button btn-cart" type="button" title="Thêm vào giỏ hàng" data-original-title="Thêm vào giỏ hàng" data-id="@item.Id"><span>Thêm vào giỏ hàng</span> </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}*@

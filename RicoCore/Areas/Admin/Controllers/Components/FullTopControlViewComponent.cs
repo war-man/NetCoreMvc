@@ -1,0 +1,33 @@
+﻿using Microsoft.AspNetCore.Mvc;
+using RicoCore.Services.Systems.Functions;
+using RicoCore.Services.Systems.Functions.Dtos;
+using RicoCore.Utilities.Constants;
+using System.Collections.Generic;
+using System.Linq;
+using System.Security.Claims;
+using System.Threading.Tasks;
+
+namespace RicoCore.Areas.Admin.Components
+{
+    // ViewComponent
+    // using Microsoft.AspNetCore.Mvc;
+    public class FullTopControlViewComponent : ViewComponent
+    {        
+        // IViewComponentResult
+        // using Microsoft.AspNetCore.Mvc;
+        public async Task<IViewComponentResult> InvokeAsync(string function, string template)
+        {
+            try
+            {
+                ViewBag.Function = function;
+                ViewBag.ExcelTemplate = template;
+                return View();
+            }
+            catch (System.Exception ex)
+            {
+                throw ex;
+            }
+           
+        }
+    }
+}

@@ -1,0 +1,36 @@
+﻿@using Microsoft.AspNetCore.Authorization
+@using AspNetCore.Authorization
+@inject IAuthorizationService AuthorizationService
+@{ 
+    var function = (string)ViewBag.Function;
+    var excelTemplate = (string)ViewBag.ExcelTemplate;
+}
+<div class="row">
+    <div class="col-md-12 col-sm-12 col-xs-12">
+        @if ((await AuthorizationService.AuthorizeAsync(User, function, Operations.Create)).Succeeded)
+        {
+            <button class="btn btn-success btn-create" type="button">Tạo mới</button>           
+        }
+        @if ((await AuthorizationService.AuthorizeAsync(User, function, Operations.ImportExport)).Succeeded)
+        {            
+            <a class="btn btn-danger" href="~/templates/@(excelTemplate).xlsx">Mẫu nhập (Excel)</a>
+            <button class="btn btn-primary" id="btn-import" type="button"><i class="fa fa-file-excel-o"></i>Nhập (Excel)</button>
+            <button class="btn btn-default" id="btn-export" type="button"><i class="fa fa-forward"></i>Xuất file (Excel)</button>
+        }
+        @if ((await AuthorizationService.AuthorizeAsync(User, function, Operations.SoftDelete)).Succeeded)
+        {
+            <button type="button" name="soft-delete-selected" class="btn red soft-delete-selected">
+                <i class="fa fa-trash-o"></i> Xóa nhiều
+            </button>
+        }
+        @if ((await AuthorizationService.AuthorizeAsync(User, function, Operations.Delete)).Succeeded)
+        {
+            <button type="button" name="delete-selected" class="btn red delete-selected">
+                <i class="fa fa-trash-o"></i> Xóa vĩnh viễn nhiều
+            </button>
+            <button type="button" name="recover-soft-deleted" class="btn blue recover-soft-deleted">
+                <i class="fa fa-trash-o"></i> Danh sách xóa tạm
+            </button>
+        }
+    </div>
+</div>

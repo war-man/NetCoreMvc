@@ -1,0 +1,87 @@
+﻿<div id="modal-add-edit" class="bootbox modal fade modal-darkorange in" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog  modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="bootbox-close-button close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h4 class="modal-title">Logo</h4>
+            </div>
+            <div class="modal-body">
+                <div id="horizontal-form">
+
+                    <form class="form-horizontal" role="form" id="frmMaintainance">
+                        <input type="hidden" id="hidLogoId" />
+                        <div class="form-group">
+                            <label for="txtImage" class="col-sm-2 control-label no-padding-right">Ảnh*</label>
+                            <div class="col-sm-6">
+                                <div class="input-group">
+                                    <input type="text" name="txtImage" class="form-control" id="txtImage" />
+                                    <input type="file" id="fileInputImage" style="display:none" />
+                                    <span class="input-group-btn">
+                                        <input type="button" id="btnSelectImg" class="btn btn-default" value="Browser" />
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="txtImageAlt" class="col-sm-2 control-label no-padding-right">Mô tả ảnh (Alt)*</label>
+                            <div class="col-sm-10">
+                                <input type="text" name="txtImageAlt" class="form-control" id="txtImageAlt">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="txtFavicon" class="col-sm-2 control-label no-padding-right">Favicon*</label>
+                            <div class="col-sm-6">
+                                <div class="input-group">
+                                    <input type="text" name="txtFavicon" class="form-control" id="txtFavicon" />
+                                    <input type="file" id="fileInputImage2" style="display:none" />
+                                    <span class="input-group-btn">
+                                        <input type="button" id="btnSelectImg2" class="btn btn-default" value="Browser" />
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="form-group">
+                            <label for="txtSize" class="col-sm-2 control-label no-padding-right">Kích thước ảnh</label>
+                            <div class="col-sm-10">
+                                <input type="text" name="txtSize" class="form-control" id="txtSize">
+                            </div>
+                        </div>
+
+
+
+                        <div class="form-group">
+                            <label for="txtSortOrder" class="col-sm-2 control-label no-padding-right">Thứ tự*</label>
+                            <div class="col-sm-10">
+                                <input type="number" name="txtSortOrder" class="form-control" id="txtSortOrder">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="ckStatus" class="col-sm-2 control-label no-padding-right">Hoạt động</label>
+                            <div class="col-sm-10">
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox" checked="checked" name="ckStatus" id="ckStatus">
+                                        <span class="text">Kích hoạt</span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-offset-2 col-sm-10">
+                                <button type="button" id="btn-save" class="btn btn-success">Lưu lại</button>
+                                <button type="button" id="btn-cancel" data-dismiss="modal" class="btn btn-danger">Hủy bỏ</button>
+                            </div>
+                        </div>
+
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

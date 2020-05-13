@@ -1,0 +1,205 @@
+﻿@using RicoCore.Services.Content.Posts.Dtos;
+@model PostViewModel
+@{
+    ViewData["MetaTitle"] = @Html.Raw(Model.MetaTitle);
+    ViewData["MetaDescription"] = @Html.Raw(Model.MetaDescription);
+    ViewData["MetaKeywords"] = @Html.Raw(Model.MetaKeywords);
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="breadcrumbs">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12">
+                <ul>
+                    <li class="home"> <a title="Trang chủ" href="/">Trang chủ</a><span>&raquo;</span></li>
+                    <li><strong><a title="@ViewBag.CategoryName" href="/danh-muc/@ViewBag.CategoryUrl">@ViewBag.CategoryName</a><span>&raquo;</span></strong></li>
+                    <li><strong><a title="@Model.Name" href="/bai-viet/@Model.Url">@Model.Name</a></strong></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="main-container col2-right-layout">
+    <div class="main container">
+        <div class="row">
+            <div class="col-sm-9">
+                <div class="col-main">
+                    @*<div class="page-title">
+                        <h2>Blog</h2>
+                    </div>*@
+                    <div class="blog-wrapper" id="main">
+                        <div class="site-content" id="primary">
+                            <div role="main" id="content">
+                                <article class="blog_entry">
+                                    <header class="blog_entry-header">
+                                        <div class="blog_entry-header-inner">
+                                            <h2 class="blog_entry-title">@Model.Name</h2>
+                                        </div>
+                                        <!--blog_entry-header-inner-->
+                                    </header>
+                                    <!--blog_entry-header-->
+                                    <div class="entry-content">
+                                        <div class="featured-thumb">
+                                            @*<a href="/bai-viet/@Model.Url">*@
+                                                @if (!string.IsNullOrEmpty(Model.Image) || !string.IsNullOrWhiteSpace(Model.Image))
+                                                {
+                                                    <img alt="@Model.Name" src="@Model.Image" class="responsive-image">
+                                                }
+                                                else
+                                                {                                                    
+                                                    <img alt="@Model.Name" class="responsive-image" src="/client-side/images/blog-img5.jpg" />
+                                                }
+                                            @*</a>*@
+                                        </div>
+                                        <div class="entry-meta-data"> 
+                                        @*<span class="author"><i class="fa fa-user"></i>&nbsp; by: <a href="javascript:;">Admin</a></span> 
+                                        <span class="comment-count"> <i class="fa fa-comment"></i>&nbsp; 3 </span>*@ 
+                                        <span class="date"><i class="fa fa-calendar"></i>&nbsp; @Model.DateCreated.Day - @Model.DateCreated.Month - @Model.DateCreated.Year</span> </div>
+                                        <div class="entry-content">
+                                           @Html.Raw(Model.Content)
+                                        </div>
+                                    </div>
+                                </article>
+                                @*<div class="comment-content">
+                                    <div class="comments-wrapper">
+                                        <h3> Comments </h3>
+                                        <ul class="commentlist">
+                                            <li class="comment">
+                                                <div class="comment-wrapper" id="post-29">
+                                                    <div class="comment-author vcard">
+                                                        <p class="gravatar"><a href="#"><img width="60" height="60" alt="avatar" src="images/avatar60x60.jpg"></a></p>
+                                                        <span class="author">John Doe</span>
+                                                    </div>
+                                                    <!--comment-author vcard-->
+                                                    <div class="comment-meta">
+                                                        <time datetime="2014-07-10T07:26:28+00:00" class="entry-date">Thu, Jul 10, 2014 07:26:28 am</time>
+                                                        .
+                                                    </div>
+                                                    <!--comment-meta-->
+                                                    <div class="comment-body"> Curabitur at vestibulum sem. Aliquam vehicula neque ac nibh suscipit ultrices. Morbi interdum accumsan arcu nec scelerisque ellentesque id erat sem, ut commodo nulla. Sed a nulla et eros fringilla. Phasellus eget purus nulla. </div>
+                                                </div>
+                                            </li>
+                                            <!--comment-->
+                                            <li class="comment">
+                                                <div class="comment-wrapper" id="post-29">
+                                                    <div class="comment-author vcard">
+                                                        <p class="gravatar"><a href="#"><img width="60" height="60" alt="avatar" src="images/avatar60x60.jpg"></a></p>
+                                                        <span class="author">John Doe</span>
+                                                    </div>
+                                                    <!--comment-author vcard-->
+                                                    <div class="comment-meta">
+                                                        <time datetime="2014-07-10T07:27:08+00:00" class="entry-date">Thu, Jul 10, 2014 07:27:08 am</time>
+                                                        .
+                                                    </div>
+                                                    <!--comment-meta-->
+                                                    <div class="comment-body"> Curabitur at vestibulum sem. Aliquam vehicula neque ac nibh suscipit ultrices. Morbi interdum accumsan arcu nec scelerisque ellentesque id erat sem, ut commodo nulla. Sed a nulla et eros fringilla. Phasellus eget purus nulla. </div>
+                                                </div>
+                                            </li>
+                                            <!--comment-->
+                                            <li class="comment">
+                                                <div class="comment-wrapper" id="post-29">
+                                                    <div class="comment-author vcard">
+                                                        <p class="gravatar"><a href="#"><img width="60" height="60" alt="avatar" src="images/avatar60x60.jpg"></a></p>
+                                                        <span class="author">John Doe</span>
+                                                    </div>
+                                                    <!--comment-author vcard-->
+                                                    <div class="comment-meta">
+                                                        <time datetime="2014-07-10T07:27:56+00:00" class="entry-date">Thu, Jul 10, 2014 07:27:56 am</time>
+                                                        .
+                                                    </div>
+                                                    <!--comment-meta-->
+                                                    <div class="comment-body"> Curabitur at vestibulum sem. Aliquam vehicula neque ac nibh suscipit ultrices. Morbi interdum accumsan arcu nec scelerisque ellentesque id erat sem, ut commodo nulla. Sed a nulla et eros fringilla. Phasellus eget purus nulla. </div>
+                                                </div>
+                                            </li>
+                                            <!--comment-->
+                                            <li class="comment">
+                                                <div class="comment-wrapper" id="post-29">
+                                                    <div class="comment-author vcard">
+                                                        <p class="gravatar"><a href="#"><img width="60" height="60" alt="avatar" src="images/avatar60x60.jpg"></a></p>
+                                                        <span class="author">Lisa White</span>
+                                                    </div>
+                                                    <!--comment-author vcard-->
+                                                    <div class="comment-meta">
+                                                        <time datetime="2014-07-10T07:28:32+00:00" class="entry-date">Thu, Jul 10, 2014 07:28:32 am</time>
+                                                        .
+                                                    </div>
+                                                    <!--comment-meta-->
+                                                    <div class="comment-body"> Curabitur at vestibulum sem. Aliquam vehicula neque ac nibh suscipit ultrices. Morbi interdum accumsan arcu nec scelerisque ellentesque id erat sem, ut commodo nulla. Sed a nulla et eros fringilla. </div>
+                                                </div>
+                                            </li>
+                                            <!--comment-->
+                                        </ul>
+                                        <!--commentlist-->
+                                    </div>
+                                    <!--comments-wrapper-->
+
+                                    <div class="comments-form-wrapper">
+                                        <h3>Leave A reply</h3>
+                                        <form class="comment-form" method="post" id="postComment" action="">
+                                            <div class="field">
+                                                <label for="name">Name<em class="required">*</em></label>
+                                                <input type="text" class="input-text" title="Name" value="" id="user" name="user_name">
+                                            </div>
+                                            <div class="field">
+                                                <label for="email">Email<em class="required">*</em></label>
+                                                <input type="text" class="input-text validate-email" title="Email" value="" id="email" name="user_email">
+                                            </div>
+                                            <div class="clear"></div>
+                                            <div class="field aw-blog-comment-area">
+                                                <label for="comment">Comment<em class="required">*</em></label>
+                                                <textarea rows="5" cols="50" class="input-text" title="Comment" id="comment" name="comment"></textarea>
+                                            </div>
+                                            <div style="width:96%" class="button-set">
+                                                <input type="hidden" value="1" name="blog_id">
+                                                <button type="submit" class="bnt-comment"><span><span>Add Comment</span></span></button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                    <!--comments-form-wrapper-->
+
+                                </div>*@
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-right sidebar col-sm-3">
+                <div role="complementary" class="widget_wrapper13" id="secondary">
+                    @await Component.InvokeAsync("MostPopularPosts")
+                    @await Component.InvokeAsync("Categories")
+                    @*@await Component.InvokeAsync("BannerAdBlock")
+                    @await Component.InvokeAsync("BlockTags")
+                    @await Component.InvokeAsync("TextWidget")*@                 
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@*<div class="col-sm-12 col-xs-12">
+    <h1>@Model.Name</h1>
+    <p>@Html.Raw(Model.Description)</p>
+    <p>@Html.Raw(Model.Content)</p>
+    @if (ViewBag.CategoryUrl == "asp-net-mvc"
+  || ViewBag.CategoryUrl == "asp-net-core"
+  || ViewBag.CategoryUrl == "html-css"
+  || ViewBag.CategoryUrl == "javascript"
+  || ViewBag.CategoryUrl == "jquery")
+    {
+        <hr />
+        <div style="background:#eeeeee;border:1px solid #cccccc;padding:5px 10px;">
+            <strong>Nguồn của nội dung (Tedu.com.vn): <a href="https://tedu.com.vn/" rel="nofollow" title="TEDU - Học lập trình qua dự án thực tế">TEDU - Học lập tr&igrave;nh qua dự &aacute;n thực tế</a></strong>
+        </div>
+    }
+    &nbsp;
+    <p>Tags: @Model.Tags</p>
+    <p>Lượt xem: @Model.Viewed</p>
+
+    <p>Ngày cập nhật: @Model.DateModified</p>
+    <p class="border-bottom"></p>
+</div>*@
